@@ -1,3 +1,6 @@
+import { BgGreen, BgRed, cpbUrls } from '../config';
+// to check sites that have to login first
+// please login first and then run the script
 export function checkGtmInstalled(
   requests: string[],
   url: { url: string; gtmId: string }
@@ -11,6 +14,7 @@ export function checkGtmInstalled(
     );
     if (!gtmIds.includes(url.gtmId)) {
       console.error(
+        BgRed,
         'Error: ',
         url.url,
         'should be',
@@ -20,11 +24,11 @@ export function checkGtmInstalled(
       );
       console.log(`------------------------`);
     } else {
-      console.log(`Success: ${url.url} with gtmId: ${url.gtmId}`);
+      console.log(BgGreen, `Success: ${url.url} with gtmId: ${url.gtmId}`);
       console.log(`------------------------`);
     }
   } else {
-    console.log(`No gtmId found for ${url.url}`);
+    console.log(BgRed, `No gtmId found for ${url.url}`);
     console.log(`------------------------`);
   }
 }

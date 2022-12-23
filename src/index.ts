@@ -1,4 +1,4 @@
-import { USER_AGENT, HEADERLESS, cpbUrls, contentsquare } from './config';
+import { USER_AGENT, HEADERLESS, cpbUrls } from './config';
 import puppeteer from 'puppeteer';
 import { checkGtmInstalled } from './services/gtmChecking.service';
 import { getContentSquareRequests } from './services/contentsquare.service';
@@ -34,10 +34,15 @@ async function getAllRequests(
   return requests;
 }
 
-(async () => {
-  for (const url of contentsquare) {
+async function checkCpbUrls() {
+  for (const url of cpbUrls) {
     await getAllRequests(puppeteer, url.url).then(requests => {
-      getContentSquareRequests(requests);
+      // getContentSquareRequests(requests);
+      checkGtmInstalled(requests, url);
     });
   }
+}
+
+(async () => {
+  await checkCpbUrls();
 })();
